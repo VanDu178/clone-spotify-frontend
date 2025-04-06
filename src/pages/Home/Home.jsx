@@ -66,7 +66,7 @@ const Home = () => {
             }
         };
 
-        fetchTrendingData();
+        fetchTrendingData(); 
     }, []); // Chỉ chạy một lần khi component mount
 
     // Hiển thị loading nếu dữ liệu chưa được tải

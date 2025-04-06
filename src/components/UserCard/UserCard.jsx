@@ -52,4 +52,4 @@ const UserCard = ({ name, image, role_id }) => {
     );
 };
 
-export default UserCard;
+export default UserCard; 

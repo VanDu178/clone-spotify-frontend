@@ -116,7 +116,7 @@ const App = () => {
                         <Route
                           path="/user/*"
                           element={
-                            <SearchContext>
+                            <SearchContext> 
                               <Main>
                                 <Routes>
                                   <Route path="/" element={<Home />} />

@@ -8,7 +8,7 @@ export const SearchProvider = ({ children }) => {
 
     // debounce chỉ gọi setSearchKeyword sau 300ms không đổi input
     const debouncedSetKeyword = useMemo(() => debounce((value) => {
-        setSearchKeyword(value);
+        setSearchKeyword(value); 
     }, 300), []);
 
     return (

@@ -65,7 +65,7 @@ const HomeTabs = ({ type, keyword }) => {
         } catch (error) {
             console.error("Error fetching songs: ", error);
         } finally {
-            setLoading(prev => ({ ...prev, songs: false }));
+            setLoading(prev => ({ ...prev, songs: false })); 
         }
     };
 
