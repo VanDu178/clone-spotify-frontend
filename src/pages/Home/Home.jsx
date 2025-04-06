@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MusicSlider from "../../components/MusicSlider/MusicSlider";
-import Loading from "../../components/Loading/Loading";
-import "./Home.css";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import axiosInstance from "../../config/axiosConfig";
-import { useUserData } from "../../context/UserDataProvider";
 import Forbidden from "../../components/Error/403/403";
+import Loading from "../../components/Loading/Loading";
+import axiosInstance from "../../config/axiosConfig";
+import { useSearch } from "../../context/SearchContext";
+import { useUserData } from "../../context/UserDataProvider";
 import { checkData } from "../../helpers/encryptionHelper";
+import HomeTabs from "../HomeTabs/HomeTabs";
+import "./Home.css";
 
 const Home = () => {
     const { t } = useTranslation();
@@ -19,6 +20,10 @@ const Home = () => {
     const [loading, setLoading] = useState(true); // Trạng thái loading
     const { isLoggedIn } = useUserData();
     const [validRole, setValidRole] = useState(false);
+
+    const { searchKeyword } = useSearch(); 
+
+    const [selectedType, setSelectedType] = useState("all");
 
     useEffect(() => {
         const fetchRole = async () => {
@@ -67,12 +72,14 @@ const Home = () => {
     // Hiển thị loading nếu dữ liệu chưa được tải
     if (loading) {
         return <Loading message={t("utils.loading")} height="60" />;
-
     }
 
     if (!validRole) {
         return <Forbidden />;
     }
+
+    const isSearching = searchKeyword && searchKeyword.trim().length > 0;
+
     return (
         <div className="col home-content">
             <div className="p-3 border rounded-3 home-content">
@@ -80,12 +87,17 @@ const Home = () => {
                     <div className="d-flex justify-content-center">
                         <button className="custom-btn active mx-2">{t("home.all")}</button>
                         <button className="custom-btn mx-2">{t("home.music")}</button>
+                        <button className="custom-btn mx-2">{t("home.album")}</button>
                         <button className="custom-btn mx-2">{t("home.playlists")}</button>
+                        <button className="custom-btn mx-2">{t("home.artist")}</button>
+                        <button className="custom-btn mx-2">{t("home.podcast")}</button>
+                        <button className="custom-btn mx-2">{t("home.category")}</button>
+                        <button className="custom-btn mx-2">{t("home.profile")}</button>
                     </div>
                 </nav>
 
-                <div>
-                    <div className="card-group card-group-scroll">
+                <div id="content-viewer">
+                    {/* <div className="card-group card-group-scroll">
                         <MusicSlider items={playlists} type="playlist" />
                     </div>
                     <div className="card-group card-group-scroll">
@@ -93,7 +105,17 @@ const Home = () => {
                     </div>
                     <div className="card-group card-group-scroll">
                         <MusicSlider items={songs} type="song" />
-                    </div>
+                    </div> */}
+                    
+                    {/* Nếu có search thì hiển thị search tab */}
+                    {isSearching ? (
+                        <HomeTabs type={selectedType} keyword={searchKeyword} isSearch />
+                    ) : (
+                        <>
+                            {/* Nếu không search thì hiển thị nội dung gốc */}
+                            <HomeTabs type={selectedType} />
+                        </>
+                    )}
                 </div>
             </div>
         </div>

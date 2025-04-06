@@ -1,0 +1,53 @@
+    .album-card {
+        border: none;
+    }
+        
+    .album-card img {
+        height: 160px;
+        object-fit: cover;
+    }
+        
+    .overlay-gradient {
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 10px;
+    }
+        
+        .card-title {
+        max-width: 75%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+        
+        .card-text {
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+        
+        .play-button {
+        width: 46px;
+        height: 46px;
+        opacity: 0;
+        background-color: #00ff88;
+        transition: opacity 0.1s ease-in-out, transform 0.2s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .play-button:hover {
+        background-color: #00ff88;
+        transform: scale(1.1); /* Tăng kích thước lên 20% */
+    }
+    
+        .album-card:hover .play-button {
+        opacity: 1;
+        }
+        
+    
+        .card-body{
+        background-color: #151515;
+        }

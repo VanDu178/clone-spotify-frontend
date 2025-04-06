@@ -1,34 +1,36 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import React from "react";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { SongProvider } from "./context/SongProvider";
-import { PlaylistProvider } from "./context/PlaylistProvider";
 import { IsPlayingProvider } from "./context/IsPlayingProvider";
+import { PlaylistProvider } from "./context/PlaylistProvider";
+import SearchContext from "./context/SearchContext";
+import { SongProvider } from "./context/SongProvider";
+import { UserDataProvider } from "./context/UserDataProvider";
+import { UserProvider } from "./context/UserProvider";
 import Main from "./Layout/Main/Main";
-import SpotifyLogin from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
-import ResetPassword from "./pages/ForgotPassword/ForgotPassword";
 import Overview from "./pages/Account/OverviewDashboard";
 import Profile from "./pages/Account/Profile/Profile";
 import Chat from "./pages/Chat/DeepSeekChat";
-import Premium from "./pages/Premium/premium";
+import ResetPassword from "./pages/ForgotPassword/ForgotPassword";
 import Home from "./pages/Home/Home";
-import Upload from "./pages/UploadPage/UploadPage";
-import { UserProvider } from "./context/UserProvider";
-import { UserDataProvider } from "./context/UserDataProvider";
+import SpotifyLogin from "./pages/Login/Login";
 import PaymentMethod from "./pages/PaymentMethod/PaymentMethod";
-import VNPayPayment from "./pages/VNPayPayment/VNPayPayment";
 import PlaylistDetail from "./pages/PlaylistDetail/PlaylistDetail";
+import Premium from "./pages/Premium/premium";
+import Signup from "./pages/Signup/Signup";
+import Upload from "./pages/UploadPage/UploadPage";
+import VNPayPayment from "./pages/VNPayPayment/VNPayPayment";
 
 /*Artist*/
 import ArtistLayout from "./Layout/ArtistLayout/ArtistLayout";
-import ArtistSongList from "./pages/Artist/ArtistSongList/ArtistSongList";
 import ArtistAlbumList from "./pages/Artist/ArtistAlbumList/ArtistAlbumList";
+import ArtistSongList from "./pages/Artist/ArtistSongList/ArtistSongList";
 import CreateAlbum from "./pages/Artist/CreateAlbum/CreateAlbum";
 
 /*Admin*/
 import AdminLayout from "./Layout/AdminLayout/AdminLayout";
+
 
 import "react-toastify/dist/ReactToastify.css"; // Đừng quên import CSS của toastify
 
@@ -114,17 +116,19 @@ const App = () => {
                         <Route
                           path="/user/*"
                           element={
-                            <Main>
-                              <Routes>
-                                <Route path="/" element={<Home />} />
-                                <Route
-                                  path="/playlist/:idPlaylist"
-                                  element={<PlaylistDetail />}
-                                />
-                                <Route path="/chat" element={<Chat />} />
-                                <Route path="/premium" element={<Premium />} />
-                              </Routes>
-                            </Main>
+                            <SearchContext>
+                              <Main>
+                                <Routes>
+                                  <Route path="/" element={<Home />} />
+                                  <Route
+                                    path="/playlist/:idPlaylist"
+                                    element={<PlaylistDetail />}
+                                  />
+                                  <Route path="/chat" element={<Chat />} />
+                                  <Route path="/premium" element={<Premium />} />
+                                </Routes>
+                              </Main>
+                            </SearchContext>
                           }
                         />
                       </Routes>

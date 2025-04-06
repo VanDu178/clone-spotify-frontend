@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaSpotify } from "react-icons/fa";
 import { GoBell, GoHomeFill } from "react-icons/go";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useSearch } from "../../context/SearchContext";
 import { useUserData } from "../../context/UserDataProvider";
 import { useUser } from "../../context/UserProvider";
-import Cookies from "js-cookie";
 import { checkData } from "../../helpers/encryptionHelper";
 import "./Header.css";
 
@@ -19,6 +20,7 @@ const Header = () => {
   const { getUserInfo } = useUser();
   const [userPanelState, setUserPanelState] = useState(false);
   const [validRole, setValidRole] = useState(false);
+  const { debouncedSetKeyword } = useSearch();
 
   useEffect(() => {
     const fetchRole = async () => {
@@ -87,7 +89,7 @@ const Header = () => {
             <div className="hd-search-icon">
               <IoSearchOutline size={24} color="white" title="Search" />
             </div>
-            <input type="text" placeholder={t("header2.searchPlaceholder")} />
+            <input type="text" placeholder={t("header2.searchPlaceholder")} onChange={(e) => debouncedSetKeyword(e.target.value)}/>
           </div>
         </div>
       </div>
